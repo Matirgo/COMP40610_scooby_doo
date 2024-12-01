@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "hconcat": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/Matirgo/COMP40610_scooby_doo/main/scoobydoo-final.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "title": {
+        "text": "Scooby Doo",
+        "anchor": "middle"
+      },
+      "width": 500,
+      "height": 500,
+      "transform": [
+        {
+          "filter": "datum.imdb > 0"
+        },
+        {
+          "calculate": "((datum.monster_gender === 'Female' ? 1 : 0) + (datum.monster_gender2 === 'Female' ? 1 : 0) + (datum.monster_gender3 === 'Female' ? 1 : 0) + (datum.monster_gender4 === 'Female' ? 1 : 0) + (datum.monster_gender5 === 'Female' ? 1 : 0) + (datum.monster_gender6 === 'Female' ? 1 : 0) + (datum.monster_gender7 === 'Female' ? 1 : 0) + (datum.monster_gender8 === 'Female' ? 1 : 0) + (datum.monster_gender9 === 'Female' ? 1 : 0) + (datum.monster_gender10 === 'Female' ? 1 : 0) + (datum.monster_gender11 === 'Female' ? 1 : 0) + (datum.monster_gender12 === 'Female' ? 1 : 0) + (datum.monster_gender13 === 'Female' ? 1 : 0) + (datum.monster_gender14 === 'Female' ? 1 : 0) + (datum.monster_gender15 === 'Female' ? 1 : 0) + (datum.monster_gender16 === 'Female' ? 1 : 0) + (datum.monster_gender17 === 'Female' ? 1 : 0) + (datum.monster_gender18 === 'Female' ? 1 : 0) + (datum.monster_gender19 === 'Female' ? 1 : 0)) / ((datum.monster_gender ? 1 : 0) + (datum.monster_gender2 ? 1 : 0) + (datum.monster_gender3 ? 1 : 0) + (datum.monster_gender4 ? 1 : 0) + (datum.monster_gender5 ? 1 : 0) + (datum.monster_gender6 ? 1 : 0) + (datum.monster_gender7 ? 1 : 0) + (datum.monster_gender8 ? 1 : 0) + (datum.monster_gender9 ? 1 : 0) + (datum.monster_gender10 ? 1 : 0) + (datum.monster_gender11 ? 1 : 0) + (datum.monster_gender12 ? 1 : 0) + (datum.monster_gender13 ? 1 : 0) + (datum.monster_gender14 ? 1 : 0) + (datum.monster_gender15 ? 1 : 0) + (datum.monster_gender16 ? 1 : 0) + (datum.monster_gender17 ? 1 : 0) + (datum.monster_gender18 ? 1 : 0) + (datum.monster_gender19 ? 1 : 0)) * 100",
+          "as": "female_percentage"
+        },
+        {
+          "calculate": "(datum.monster_gender ? 1 : 0) + (datum.monster_gender2 ? 1 : 0) + (datum.monster_gender3 ? 1 : 0) + (datum.monster_gender4 ? 1 : 0) + (datum.monster_gender5 ? 1 : 0) + (datum.monster_gender6 ? 1 : 0) + (datum.monster_gender7 ? 1 : 0) + (datum.monster_gender8 ? 1 : 0) + (datum.monster_gender9 ? 1 : 0) + (datum.monster_gender10 ? 1 : 0) + (datum.monster_gender11 ? 1 : 0) + (datum.monster_gender12 ? 1 : 0) + (datum.monster_gender13 ? 1 : 0) + (datum.monster_gender14 ? 1 : 0) + (datum.monster_gender15 ? 1 : 0) + (datum.monster_gender16 ? 1 : 0) + (datum.monster_gender17 ? 1 : 0) + (datum.monster_gender18 ? 1 : 0) + (datum.monster_gender19 ? 1 : 0)",
+          "as": "num_monsters"
+        }
+      ],
+      "mark": "circle",
+      "encoding": {
+        "y": {
+          "field": "imdb",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "title": "IMDB Score"
+        },
+        "x": {
+          "field": "date_aired",
+          "type": "temporal",
+          "title": "Date Aired"
+        },
+        "size": {
+          "field": "num_monsters",
+          "type": "quantitative",
+          "scale": {
+            "type": "linear",
+            "range": [50, 300]
+          },
+          "title": "Number of Monsters",
+          "legend": {
+            "orient": "right"
+          }
+        },
+        "color": {
+          "field": "female_percentage",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 100],
+            "range": ["#00C7A9", "#8101FA"]
+          },
+          "legend": {
+            "title": "Female Percentage",
+            "orient": "right"
+          }
+        },
+        "tooltip": [
+          {"field": "title", "type": "nominal"},
+          {"field": "imdb", "type": "quantitative"},
+          {"field": "num_monsters", "type": "quantitative"},
+          {"field": "female_percentage", "type": "quantitative", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/Matirgo/COMP40610_scooby_doo/main/scoobydoo-final.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "transform": [
+        {
+          "fold": ["monster_type", "monster_type2", "monster_type3", "monster_type4", "monster_type5", "monster_type6", "monster_type7", "monster_type8", "monster_type9", "monster_type10", "monster_type11", "monster_type12", "monster_type13", "monster_type14", "monster_type15", "monster_type16", "monster_type17", "monster_type18", "monster_type19"],
+          "as": ["monster_type_combined", "monster_type_value"]
+        },
+        {
+          "filter": "datum.monster_type_value !== ''"
+        }
+      ],
+      "mark": "bar",
+      "width": 200,
+      "height": 500,
+      "encoding": {
+        "x": {
+          "aggregate": "count",
+          "field": "monster_type_value",
+          "type": "quantitative",
+          "title": "Number of Appearances"
+        },
+        "y": {
+          "field": "monster_type_value",
+          "type": "nominal",
+          "sort": "-x",
+          "title": "Monster Type"
+        },
+        "color": {
+          "field": "monster_gender_value",
+          "type": "nominal",
+          "legend": null
+        }
+      }
+    }
+  ]
+}
