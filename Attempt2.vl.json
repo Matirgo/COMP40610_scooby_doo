@@ -1,0 +1,163 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Matirgo/COMP40610_scooby_doo/main/scoobydoo-final_simplified.csv",
+    "format": {"type": "csv"}
+  },
+  "title": {
+    "text": "Scooby Doo",
+    "anchor": "middle"
+  },
+  "vconcat": [
+    {
+      "hconcat": [
+        {
+          "width": 500,
+          "height": 500,
+          "mark": "circle",
+          "transform": [
+            {"filter": {"param": "bar_selection"}},
+            {"filter": {"param": "legend_selection"}},
+            {"filter": {"param": "line_selection"}},
+            {
+              "calculate": "datum.monster_gender === 'Female' ? 100 : (datum.monster_gender === 'Unknown' ? 50 : 0)",
+              "as": "female_percentage"
+            }
+          ],
+          "params": [
+            {
+              "name": "scatter_selection",
+              "select": {"type": "interval", "encodings": ["x", "y"]}
+            },
+            {
+              "name": "legend_selection",
+              "select": {"type": "point", "fields": ["motive"]},
+              "bind": "legend"
+            }
+          ],
+          "encoding": {
+            "y": {
+              "field": "female_percentage",
+              "type": "quantitative",
+              "scale": {"domain": [0, 100]},
+              "title": "Percentage of Female Monsters"
+            },
+            "x": {
+              "field": "date_aired",
+              "type": "temporal",
+              "title": "Date Aired"
+            },
+            "color": {
+              "condition": {
+                "param": "scatter_selection",
+                "field": "motive",
+                "type": "nominal"
+              },
+              "value": "lightgrey"
+            },
+            "tooltip": [
+              {"field": "title", "type": "nominal"},
+              {"field": "imdb", "type": "quantitative"},
+              {"field": "female_percentage", "type": "quantitative", "format": ".1f"}
+            ]
+          }
+        },
+        {
+          "width": 200,
+          "height": 500,
+          "params": [
+            {
+              "name": "bar_selection",
+              "select": {
+                "type": "point",
+                "fields": ["monster_type"],
+                "encodings": ["y"]
+              }
+            }
+          ],
+          "transform": [
+            {"filter": {"param": "scatter_selection"}},
+            {"filter": {"param": "legend_selection"}},
+            {"filter": {"param": "line_selection"}},
+            {"filter": "datum.monster_type_value !== ''"}
+          ],
+          "mark": "bar",
+          "title": "Monster Type",
+          "encoding": {
+            "x": {
+              "aggregate": "count",
+              "field": "monster_type",
+              "type": "quantitative",
+              "title": "Number of Appearances"
+            },
+            "y": {
+              "field": "monster_type",
+              "type": "nominal",
+              "sort": "-x",
+              "title": "Monster Type"
+            },
+            "color": {
+              "condition": {
+                "param": "bar_selection",
+                "field": "motive",
+                "type": "nominal"
+              },
+              "value": "lightgrey"
+            },
+            "opacity": {
+              "condition": {"param": "bar_selection", "value": 1},
+              "value": 0.5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": 820,
+      "height": 80,
+      "transform": [
+        {"filter": {"param": "scatter_selection"}},
+        {"filter": {"param": "legend_selection"}},
+        {"filter": {"param": "bar_selection"}}
+      ],
+      "encoding": {
+        "x": {"field": "motive", "type": "nominal", "title": "Motive"},
+        "y": {"aggregate": "count", "title": "# Occurrences"},
+        "color": {
+          "condition": {
+            "param": "line_selection",
+            "field": "motive",
+            "type": "nominal"
+          },
+          "value": "lightgrey"
+        }
+      },
+      "layer": [
+        {
+          "params": [
+            {
+              "name": "line_selection",
+              "select": {
+                "type": "interval",
+                "encodings": ["x"],
+                "resolve": "global"
+              }
+            }
+          ],
+          "mark": "bar"
+        },
+        {"transform": [{"filter": {"param": "line_selection"}}], "mark": "bar"}
+      ]
+    }
+  ],
+  "config": {
+    "legend": {"orient": "right", "titleFontSize": 16, "labelFontSize": 16},
+    "axis": {
+      "titleFontSize": 20,
+      "titlePadding": 10,
+      "labelFontSize": 16,
+      "gridOpacity": 0.3
+    },
+    "mark": {"opacity": 0.7}
+  }
+}
