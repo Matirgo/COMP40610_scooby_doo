@@ -1,0 +1,58 @@
+Feature,count,unique,top,freq
+series_name,603,29,Scooby-Doo and Scrappy-Doo (second series),86
+network,603,11,ABC,281
+season,603,7,1,311
+title,603,602,Wrestle Maniacs,2
+date_aired,603,448,01/10/2020,13
+format,603,5,TV Series,374
+monster_name,516,481,Alien,6
+monster_gender,516,43,Male,319
+monster_type,516,132,Ghost,86
+monster_subtype,515,269,Humanoid,53
+monster_species,516,194,Human,175
+monster_real,516,2,False,404
+caught_fred,384,2,False,252
+caught_daphnie,438,2,False,409
+caught_velma,385,2,False,344
+caught_shaggy,571,2,False,494
+caught_scooby,575,2,False,415
+captured_fred,384,2,False,313
+captured_daphnie,438,2,False,347
+captured_velma,385,2,False,311
+captured_shaggy,571,2,False,486
+captured_scooby,575,2,False,492
+unmask_fred,384,2,False,282
+unmask_daphnie,438,2,False,401
+unmask_velma,385,2,False,291
+unmask_shaggy,571,2,False,558
+unmask_scooby,575,2,False,552
+snack_fred,384,2,False,366
+snack_daphnie,438,2,False,389
+snack_velma,385,2,False,356
+snack_shaggy,572,2,False,529
+snack_scooby,576,2,False,564
+unmask_other,603,2,False,568
+caught_other,603,2,False,519
+caught_not,603,2,False,572
+trap_work_first,249,2,True,125
+setting_terrain,603,15,Urban,267
+setting_country_state,603,79,United States,309
+non_suspect,443,2,False,397
+arrested,448,2,True,381
+culprit_name,440,433,Professor Pericles,4
+culprit_gender,440,23,Male,263
+motive,536,27,Competition,168
+if_it_wasnt_for,189,107,you meddling kids,65
+and_that,75,64,puppy,9
+door_gag,603,2,False,544
+number_of_snacks,602,18,0,463
+batman,603,2,False,599
+scooby_dum,603,2,False,586
+scrappy_doo,603,2,False,438
+hex_girls,603,2,False,597
+blue_falcon,603,2,False,570
+fred_va,384,5,Frank Welker,351
+daphnie_va,438,9,Grey DeLisle,230
+velma_va,385,12,Mindy Cohn,119
+shaggy_va,571,7,Casey Kasem,356
+scooby_va,575,5,Don Messick,308
